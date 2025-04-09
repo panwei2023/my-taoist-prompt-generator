@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taoist Prompt Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 6px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    #output {
+      white-space: pre-wrap;
+      background: #f9f9f9;
+      padding: 10px;
+      margin-top: 20px;
+      border-radius: 6px;
+    }
+    .flex {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .btn-secondary {
+      background-color: #007BFF;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Taoist Image Prompt Generator (中英双语)</h2>
+    <p>填写下列字段，自动生成英文图像脚本，可用于 AI 图像生成工具。</p>
+
+    <label>风格细节 / Style Details</label>
+    <input type="text" id="style" value="Mysterious expressionism" />
+
+    <label>文化主题 / Cultural Theme</label>
+    <input type="text" id="theme" value="Taoist and folk spiritual legends" />
+
+    <label>人物描述 / Character Description</label>
+    <input type="text" id="character" value="A slender female Taoist" />
+
+    <label>环境背景 / Environment Background</label>
+    <input type="text" id="background" value="the courtyard of an ancient temple under the night sky" />
+
+    <label>服装细节 / Clothing Description</label>
+    <input type="text" id="clothes" value="a silver-white Taoist robe" />
+
+    <label>头饰/饰品 / Headpiece or Accessory</label>
+    <input type="text" id="ornament" value="a moon-shaped jade pendant" />
+
+    <label>气质氛围 / Mood or Aura</label>
+    <input type="text" id="mood" value="a calm yet vigilant aura" />
+
+    <label>道具1 / Item 1</label>
+    <input type="text" id="item1" value="a spirit talisman" />
+
+    <label>道具2 / Item 2</label>
+    <input type="text" id="item2" value="a lantern" />
+
+    <label>特效描写 / Special Effects</label>
+    <input type="text" id="effects" value="drifting blue flames" />
+
+    <label>背景描写 / Background Contrast</label>
+    <input type="text" id="contrast" value="the ruined temple and the starry background" />
+
+    <div class="flex">
+      <button onclick="generatePrompt()">🪄 生成 Prompt</button>
+      <button class="btn-secondary" onclick="downloadPrompt()">💾 下载 Prompt</button>
+    </div>
+
+    <div id="output"></div>
+  </div>
+
+  <script>
+    function generatePrompt() {
+      const style = document.getElementById('style').value;
+      const theme = document.getElementById('theme').value;
+      const character = document.getElementById('character').value;
+      const background = document.getElementById('background').value;
+      const clothes = document.getElementById('clothes').value;
+      const ornament = document.getElementById('ornament').value;
+      const mood = document.getElementById('mood').value;
+      const item1 = document.getElementById('item1').value;
+      const item2 = document.getElementById('item2').value;
+      const effects = document.getElementById('effects').value;
+      const contrast = document.getElementById('contrast').value;
+
+      const prompt = `This East Asian ink painting merges ${style} with ${theme}, featuring ${character} standing in ${background}. The priestess, dressed in ${clothes} and adorned with ${ornament}, exudes ${mood} while holding ${item1} and ${item2}. She is surrounded by ${effects} that contrast sharply with ${contrast}.`;
+
+      document.getElementById('output').textContent = prompt;
+    }
+
+    function downloadPrompt() {
+      const prompt = document.getElementById('output').textContent;
+      if (!prompt) return alert("请先生成 Prompt！");
+      const blob = new Blob([prompt], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'taoist_prompt.txt';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
+</body>
+</html>
